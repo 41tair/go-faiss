@@ -19,6 +19,11 @@ import (
 	"unsafe"
 )
 
+type Result struct {
+	Distance float32
+	ID       int32
+}
+
 type Vectors []float32
 
 func GenVectors(dataSize int, dimension int) Vectors {
@@ -34,11 +39,28 @@ func GenVectors(dataSize int, dimension int) Vectors {
 	return vectors
 }
 
-func InsertVectors(v Vectors, index *C.FaissIndex, dimension int) error {
-	C.Insert((*C.float)(unsafe.Pointer(&v[0])), index, C.int(dimension))
+func GenIDs(dataSize int) []int32 {
+	rand.Seed(time.Now().UnixNano())
+	ids := make([]int32, dataSize)
+	for i := 0; i < dataSize; i++ {
+		ids[i] = rand.Int31()
+	}
+	return ids
+}
+func InsertVectors(v Vectors, index *C.FaissIndex, dimension int, ids []int32) error {
+	C.Insert((*C.float)(unsafe.Pointer(&v[0])), index, C.int(dimension), (*C.long)(unsafe.Pointer(&ids[0])))
 	return nil
 }
 
-func SearchVectors(v Vectors, index *C.FaissIndex, nq int, topk int) {
-	C.Search((*C.float)(unsafe.Pointer(&v[0])), index, C.int(nq), C.int(topk))
+func SearchVectors(v Vectors, index *C.FaissIndex, nq int, topk int, resIDs []int32, resDistances []float32) []Result {
+	res := []Result{}
+	C.Search((*C.float)(unsafe.Pointer(&v[0])), index, C.int(nq), C.int(topk),
+		(*C.long)(unsafe.Pointer(&resIDs[0])), (*C.float)(unsafe.Pointer(&resDistances[0])))
+	for i := 0; i < topk; i++ {
+		res = append(res, Result{
+			Distance: resDistances[i],
+			ID:       resIDs[i],
+		})
+	}
+	return res
 }

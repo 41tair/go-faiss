@@ -8,7 +8,7 @@ import (
 func TestCreate(t *testing.T) {
 	index := &Index{
 		Dimension:   128,
-		Description: "Flat",
+		Description: "IDMap,Flat",
 		MetricType:  L2{},
 	}
 	i, err := index.Create()
