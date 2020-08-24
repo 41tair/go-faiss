@@ -24,6 +24,17 @@ https://github.com/facebookresearch/faiss/blob/v1.6.3/c_api/INSTALL.md
 ```
     import "github.com/41tair/go-faiss/faiss"
 ```
+### Example
+
+In example directory, you can find example.go
+
+1. Generate some data and create a flat index 
+
+2. Then add vectors to index 
+
+3. Generate a new vectors for search
+
+4. Search the top 10 vector
 
 
 ## Test
