@@ -8,6 +8,10 @@
 
 FaissIndex* CreateIndex(int dimension, const char* description, FaissMetricType metric_type);
 
-void Insert(float* vectors, FaissIndex* index, int num);
+void Insert(float* vectors, FaissIndex* index, int num, long* ids);
 
-void Search(float* vectors, FaissIndex* index, int nq, int topk);
+void Search(float* vectors, FaissIndex* index, int nq, int topk, long* ids, float* distances);
+
+//WriteIndex2File
+
+//ReadIndexFromFile
