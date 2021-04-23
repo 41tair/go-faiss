@@ -1,0 +1,32 @@
+---
+GENERATOR:
+  PackageName: faiss
+  PackageDescription: "test gen"
+  PackageLicense: ""
+  Includes: ["faiss_c.h"]
+  FlagGroups:
+    - {name: "LDFLAGS", flags: ["-Wl,--unresolved-symbols=ignore-in-object-files"]}
+PARSER:
+  SourcesPaths: ["faiss_c.h"]
+TRANSLATOR:
+  ConstRules:
+    defines: eval
+    enum: eval
+  PtrTips:
+    function:
+      - {target: "^faiss", default: "sref"}
+  MemTips:
+    - {target: "^faiss", default: "raw"}
+  Rules:
+    const:
+      - {action: accept, from: "^FAISS_"}
+      - {action: accept, from: "^faiss"}
+      - {transform: export}
+    type:
+      - {action: accept, from: "^faiss"}
+      - {action: replace, from: "^faiss"}
+      - {action: replace, from: "_t$"}
+      - {transform: export}
+    function:
+      - {action: accept, from: "^faiss"}
+      - {transform: unexport}
