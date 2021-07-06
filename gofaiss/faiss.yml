@@ -3,11 +3,14 @@ GENERATOR:
   PackageName: faiss
   PackageDescription: "test gen"
   PackageLicense: ""
-  Includes: ["faiss_c.h"]
+  Includes: ["faiss_c.h", "Index_c.h", "AutoTune_c.h", "clone_index_c.h", "Clustering_c.h", "error_c.h", "index_factory_c.h", "IndexFlat_c.h", "index_io_c.h", "IndexIVF_c.h", "IndexIVFFlat_c.h", "IndexLSH_c.h", "IndexPreTransform_c.h", "IndexShards_c.h", "MetaIndexes_c.h"]
   FlagGroups:
     - {name: "LDFLAGS", flags: ["-Wl,--unresolved-symbols=ignore-in-object-files"]}
+  Options:
+    SafeStrings: true
+    StruckAccessors: true
 PARSER:
-  SourcesPaths: ["faiss_c.h"]
+  SourcesPaths: ["faiss_c.h", "Index_c.h", "AutoTune_c.h", "clone_index_c.h", "Clustering_c.h", "error_c.h", "index_factory_c.h", "IndexFlat_c.h", "index_io_c.h", "IndexIVF_c.h", "IndexIVFFlat_c.h", "IndexLSH_c.h", "IndexPreTransform_c.h", "IndexShards_c.h", "MetaIndexes_c.h"]
 TRANSLATOR:
   ConstRules:
     defines: eval
