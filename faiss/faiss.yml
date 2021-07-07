@@ -24,11 +24,14 @@ TRANSLATOR:
     const:
       - {action: accept, from: "^FAISS_"}
       - {action: accept, from: "^faiss"}
+      - {action: accept, from: "^Faiss"}
       - {transform: export}
     type:
       - {action: accept, from: "^faiss"}
       - {action: replace, from: "^faiss"}
       - {action: replace, from: "_t$"}
+      - {action: accept, from: "^Faiss"}
+      - {action: accept, from: "^FAISS_"}
       - {transform: export}
     function:
       - {action: accept, from: "^faiss"}
